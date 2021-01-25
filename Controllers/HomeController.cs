@@ -12,10 +12,6 @@ namespace AspNetCoreWebApp.Controllers
         {
             return View();
         }
-        public IActionResult ListContact() 
-        {
 
-            return View();
-        }
     }
 }
