@@ -8,7 +8,11 @@ namespace AspNetCoreWebApp.Model
 {
     public class PersonController : Controller
     {
-        public IActionResult PersonForm()
+        public IActionResult CreatePerson()
+        {
+            return View();
+        }
+        public IActionResult PersonList()
         {
             return View();
         }
