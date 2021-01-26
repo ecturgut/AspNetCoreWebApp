@@ -4,7 +4,7 @@
 Contact application with net core 3.1
 
 
-- Yapılacaklar -
+ Yapılacaklar
 
 [ ] Asp.Net Framework'te Modele Veritabanı eklenmesi .Net Core için araştırılacak.
 
