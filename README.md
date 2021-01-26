@@ -1,7 +1,7 @@
 # AspNetCoreWebApp
 
 
-Contact application with net core 3.1
+Contact application with net core 5.0
 
 
  Yapılacaklar
