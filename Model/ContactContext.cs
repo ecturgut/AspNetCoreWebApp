@@ -8,11 +8,8 @@ namespace AspNetCoreWebApp.Model
 {
     public class ContactContext: DbContext
     {
-        public DbSet <Person> Persons { get; set; }
-        public DbSet<PersonInfo> PersonInfos { get; set; }
-        public DbSet <Location> Locations { get; set; }
+        public DbSet <Persons> Persons { get; set; }
         public DbSet <Report> Reports { get; set; }
-        public DbSet <ReportStatus> ReportStats { get; set; }
 
     }
 }
