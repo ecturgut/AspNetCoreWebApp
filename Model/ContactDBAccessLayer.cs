@@ -15,9 +15,9 @@ namespace AspNetCoreWebApp.Model
         {
             try
             {
-                SqlCommand cmd = new SqlCommand("sp_Person_Add", con);
+                SqlCommand cmd = new SqlCommand("pr_AddPerson", con);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@FirsName", personEntities.FirstName);
+                cmd.Parameters.AddWithValue("@FirstName", personEntities.FirstName);
                 cmd.Parameters.AddWithValue("@LastName", personEntities.LastName);
                 cmd.Parameters.AddWithValue("@Email", personEntities.Email);
                 cmd.Parameters.AddWithValue("@Telephone", personEntities.Telephone);
