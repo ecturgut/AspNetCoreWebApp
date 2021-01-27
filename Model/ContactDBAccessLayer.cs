@@ -10,7 +10,7 @@ namespace AspNetCoreWebApp.Model
     public class ContactDBAccessLayer
     {
 
-        SqlConnection con = new SqlConnection("Data Source=DESKTOP-8FK8A22; Initial Catalog = Employee; Integrated Security = True");
+        SqlConnection con = new SqlConnection("Data Source=DESKTOP-8FK8A22; Initial Catalog = PhoneBook; Integrated Security = True");
         public string AddPersonRecord(Persons personEntities)
         {
             try

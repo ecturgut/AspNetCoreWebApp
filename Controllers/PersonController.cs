@@ -33,6 +33,7 @@ namespace AspNetCoreWebApp.Model
             }
             return View();
         }
+
         public IActionResult PersonList()
         {
             return View();
