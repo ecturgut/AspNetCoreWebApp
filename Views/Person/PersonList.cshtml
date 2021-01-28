@@ -4,12 +4,18 @@
     ViewData["Title"] = "PersonList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<br />
 
-<h1>PersonList</h1>
+<h1>Person List</h1>
+
+<br />
 
 <p>
-    <button class="btn btn-primary" asp-action="CreatePerson">Create New</button>
+    <a href="CreatePerson" class="btn btn-primary">Create New Person</a>
 </p>
+
+<br />
+
 <table class="table">
     <thead>
         <tr>
@@ -58,9 +64,10 @@
                     @Html.DisplayFor(modelItem => item.Company)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <button type="button" id="sil" class="btn btn-primary badge-pill" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Edit</button>
+                    <button type="button" id="sil" class="btn btn-warning" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Details</button>                  
+                    <button type="button" id="sil" class="btn btn-sm btn-danger" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'"> Delete</button>
+                    
                 </td>
             </tr>
         }
