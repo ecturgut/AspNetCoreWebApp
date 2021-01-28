@@ -72,7 +72,7 @@ namespace AspNetCoreWebApp.Model
             {
                 dr.Close();
                 con.Close();           
-                throw;
+                throw ex;
             }
         }
     }
