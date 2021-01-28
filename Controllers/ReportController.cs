@@ -19,20 +19,20 @@ namespace AspNetCoreWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateReport([Bind] Report rptr)
+        public IActionResult CreateReport([Bind] Report rprt)
         {
-            //try
-            //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        string resp = contDB.AddReportRecord(rptr);
-            //        TempData["msg"] = resp;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    TempData["msg"] = ex.Message;
-            //}
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    string resp = contDB.AddReportRecord(rprt);
+                    TempData["msg"] = resp;
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["msg"] = ex.Message;
+            }
             return View();
         }
 

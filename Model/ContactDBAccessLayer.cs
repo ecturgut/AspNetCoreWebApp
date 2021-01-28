@@ -41,28 +41,28 @@ namespace AspNetCoreWebApp.Model
             }
         }
 
-        //public string AddReportRecord(Report reportEntities)
-        //{
-        //    try
-        //    {
-        //        SqlCommand cmd = new SqlCommand("pr_AddReport", con);
-        //        cmd.CommandType = CommandType.StoredProcedure;                
-        //        cmd.Parameters.AddWithValue("@ReportDate", reportEntities.ReportDate);
-        //        cmd.Parameters.AddWithValue("@Status", reportEntities.Status);
-        //        con.Open();
-        //        cmd.ExecuteNonQuery();
-        //        con.Close();
-        //        return ("Data save Successfully");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        if (con.State == ConnectionState.Open)
-        //        {
-        //            con.Close();
-        //        }
-        //        return (ex.Message.ToString());
-        //    }
-        //}
+        public string AddReportRecord(Report reportEntities)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("pr_AddReport", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ReportDate", reportEntities.ReportDate);
+                cmd.Parameters.AddWithValue("@Status", reportEntities.Status);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+                return ("Data save Successfully");
+            }
+            catch (Exception ex)
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+                return (ex.Message.ToString());
+            }
+        }
 
         public List<Persons> GetPersons()
         {
