@@ -18,7 +18,7 @@ namespace AspNetCoreWebApp.Model
         [Required]
         public string Email { get; set; }
         [Required]
-        public int Telephone { get; set; }
+        public string Telephone { get; set; }
         [Required]
         public string Company { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreWebApp.VMClasses;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace AspNetCoreWebApp.Model
 {
     public class PersonController : Controller
     {
+        
         ContactDBAccessLayer contDB = new ContactDBAccessLayer();
 
         [HttpGet]
@@ -36,7 +38,14 @@ namespace AspNetCoreWebApp.Model
 
         public IActionResult PersonList()
         {
-            return View();
+
+            PersonsVM pvm = new PersonsVM
+            {
+                Persons = contDB.GetPersons(),
+            };
+        
+
+            return View(pvm);
         }
     }
 }

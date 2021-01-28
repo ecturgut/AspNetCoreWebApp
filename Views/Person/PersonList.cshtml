@@ -1,4 +1,4 @@
-﻿@model AspNetCoreWebApp.Model.Persons
+﻿@model PersonsVM
 
 @{
     ViewData["Title"] = "PersonList";
@@ -8,59 +8,62 @@
 <h1>PersonList</h1>
 
 <p>
-    <a asp-action="CreatePerson">Create New</a>
+    <button class="btn btn-primary" asp-action="CreatePerson">Create New</button>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PersonID)
+               ID
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+               First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+               Last Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telephone)
+                Telephone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Company)
+                Company
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@*@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telephone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}*@
+        @foreach (Persons item in Model.Persons)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+
     </tbody>
 </table>

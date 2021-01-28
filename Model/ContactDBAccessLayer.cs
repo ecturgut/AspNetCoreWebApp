@@ -11,6 +11,9 @@ namespace AspNetCoreWebApp.Model
     {
 
         SqlConnection con = new SqlConnection("Data Source=DESKTOP-8FK8A22; Initial Catalog = PhoneBook; Integrated Security = True");
+
+        SqlDataReader dr;
+
         public string AddPersonRecord(Persons personEntities)
         {
             try
@@ -37,5 +40,40 @@ namespace AspNetCoreWebApp.Model
             }
         }
 
+        public List<Persons> GetPersons()
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select*from persons");
+                cmd.Connection = con;
+                dr = cmd.ExecuteReader();
+
+                List<Persons> list = new List<Persons>();
+
+                while (dr.Read())
+                {
+                    Persons person = new Persons
+                    {
+                        PersonID = Convert.ToInt32(dr["PersonID"]),
+                        FirstName = dr["FirstName"].ToString(),
+                        LastName = dr["LastName"].ToString(),
+                        Email  = dr["Email"].ToString(),
+                        Telephone = dr["Telephone"].ToString(),
+                        Company = dr["Company"].ToString(),
+                    };
+                    list.Add(person);
+                }
+                dr.Close();
+                con.Close();
+                return list;
+            }
+            catch (Exception ex)
+            {
+                dr.Close();
+                con.Close();           
+                throw;
+            }
+        }
     }
 }
