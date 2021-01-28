@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreWebApp.Model
 {
-    public class Report
+    public class Report : Persons
     {
         public int ID { get; set; }
 
@@ -16,8 +16,6 @@ namespace AspNetCoreWebApp.Model
 
         [Required]
         public DateTime ReportDate { get; set; }
-
-        public int PersonID { get; set; }
 
         public Persons Person { get; set; }
 

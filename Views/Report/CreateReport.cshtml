@@ -1,0 +1,65 @@
+﻿@model AspNetCoreWebApp.Model.Report
+
+@{
+    ViewData["Title"] = "CreateReport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateReport</h1>
+
+<h4>Report</h4>
+<hr />
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateReport">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group">
+                <label asp-for="ReportDate" class="control-label"></label>
+                <input asp-for="ReportDate" class="form-control" />
+                <span asp-validation-for="ReportDate" class="text-danger"></span>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group">
+                <label asp-for="PersonID" class="control-label"></label>
+                <input asp-for="PersonID" class="form-control" />
+                <span asp-validation-for="PersonID" class="text-danger"></span>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="form-group">
+                <input type="submit" value="Create Report" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@{
+    if (@TempData["Msg"] != null)
+    {
+        <script>
+
+            alert('@TempData["msg"]')
+        </script>
+
+    }
+}
+
+<div>
+    <a href="ReportList">Back to Report List</a>
+</div>
