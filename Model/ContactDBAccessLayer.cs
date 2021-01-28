@@ -24,6 +24,7 @@ namespace AspNetCoreWebApp.Model
                 cmd.Parameters.AddWithValue("@LastName", personEntities.LastName);
                 cmd.Parameters.AddWithValue("@Email", personEntities.Email);
                 cmd.Parameters.AddWithValue("@Telephone", personEntities.Telephone);
+                cmd.Parameters.AddWithValue("@Location", personEntities.Location);
                 cmd.Parameters.AddWithValue("@Company", personEntities.Company);
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -60,6 +61,7 @@ namespace AspNetCoreWebApp.Model
                         LastName = dr["LastName"].ToString(),
                         Email  = dr["Email"].ToString(),
                         Telephone = dr["Telephone"].ToString(),
+                        Location = dr["Location"].ToString(),
                         Company = dr["Company"].ToString(),
                     };
                     list.Add(person);
@@ -75,5 +77,31 @@ namespace AspNetCoreWebApp.Model
                 throw ex;
             }
         }
+
+        //public string AddReportRecord(Report reportEntities)
+        //{
+        //    try
+        //    {
+        //        SqlCommand cmd = new SqlCommand("", con);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Parameters.AddWithValue("@FirstName", personEntities.FirstName);
+        //        cmd.Parameters.AddWithValue("@LastName", personEntities.LastName);
+        //        cmd.Parameters.AddWithValue("@Email", personEntities.Email);
+        //        cmd.Parameters.AddWithValue("@Telephone", personEntities.Telephone);
+        //        cmd.Parameters.AddWithValue("@Company", personEntities.Company);
+        //        con.Open();
+        //        cmd.ExecuteNonQuery();
+        //        con.Close();
+        //        return ("Data save Successfully");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (con.State == ConnectionState.Open)
+        //        {
+        //            con.Close();
+        //        }
+        //        return (ex.Message.ToString());
+        //    }
+        //}
     }
 }

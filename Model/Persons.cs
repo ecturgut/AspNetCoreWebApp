@@ -20,6 +20,8 @@ namespace AspNetCoreWebApp.Model
         [Required]
         public string Telephone { get; set; }
         [Required]
+        public string Location { get; set; }
+        [Required]
         public string Company { get; set; }
     }
 }

@@ -20,19 +20,22 @@
     <thead>
         <tr>
             <th>
-               ID
+                ID
             </th>
             <th>
-               First Name
+                First Name
             </th>
             <th>
-               Last Name
+                Last Name
             </th>
             <th>
                 Telephone
             </th>
             <th>
                 Email
+            </th>
+            <th>
+                Location
             </th>
             <th>
                 Company
@@ -44,32 +47,35 @@
         @foreach (Persons item in Model.Persons)
         {
 
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PersonID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Telephone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Company)
-                </td>
-                <td>
-                    <button type="button" id="sil" class="btn btn-primary badge-pill" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Edit</button>
-                    <button type="button" id="sil" class="btn btn-warning" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Details</button>                  
-                    <button type="button" id="sil" class="btn btn-sm btn-danger" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'"> Delete</button>
-                    
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PersonID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telephone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
+            <td>
+                <button type="button" id="sil" class="btn btn-primary badge-pill" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Edit</button>
+                <button type="button" id="sil" class="btn btn-warning" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Details</button>
+                <button type="button" id="sil" class="btn btn-sm btn-danger" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'"> Delete</button>
+
+            </td>
+        </tr>
         }
 
     </tbody>
