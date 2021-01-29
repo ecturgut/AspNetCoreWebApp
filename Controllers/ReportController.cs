@@ -38,12 +38,13 @@ namespace AspNetCoreWebApp.Controllers
 
         public IActionResult ReportList()
         {
-            //ReportVM rvm = new ReportVM
-            //{
-            //    Report = contDB.GetReport(),
-            //};
+            ReportVM rvm = new ReportVM
+            {
+                Report = contDB.GetReport(),
+                
+            };
 
-            return View();
+            return View(rvm);
         }
     }
 }

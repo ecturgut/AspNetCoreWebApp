@@ -43,7 +43,7 @@
         </tr>
     </thead>
     <tbody>
-        @*@foreach (Report item in Model.Report)
+        @foreach (Report item in Model.Report)
         {
 
             <tr>
@@ -67,7 +67,8 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Location)
-                </td>*@
+                </td>
+
                 <td>
                     <button type="button" id="sil" class="btn btn-primary badge-pill" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Edit</button>
                     <button type="button" id="sil" class="btn btn-warning" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Details</button>

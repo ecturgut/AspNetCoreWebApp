@@ -97,46 +97,49 @@ namespace AspNetCoreWebApp.Model
             {
                 dr.Close();
                 con.Close();           
-                throw ex;
+                throw;
             }
         }
 
-        //public List<Report> GetReport()
-        //{
-        //    try
-        //    {
-        //        con.Open();
-        //        SqlCommand cmd = new SqlCommand("pr_Get_Report_Record", con);
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.Connection = con;
-        //        dr = cmd.ExecuteReader();
+        public List<Report> GetReport()
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("SELECT p.FirstName, p.LastName,p.Company, p.Location ,r.ReportDate,r.Status FROM Persons p LEFT JOIN Report r ON p.PersonID = r.PersonID", con);               
+                cmd.Connection = con;
+                dr = cmd.ExecuteReader();
 
-        //        List<Report> List = new List<Report>();
+                List<Report> List = new List<Report>();
 
-        //        while (dr.Read())
-        //        {
-        //            Report report = new Report
-        //            {
-        //                ID = Convert.ToInt32(dr["ID"]),
-        //                Company = dr["Company"].ToString(),
-        //                FirstName = dr["FirstName"].ToString(),
-        //                LastName = dr["LastName"].ToString(),
-        //                ReportDate = Convert.ToDateTime(dr["ReportDate"]),
-        //                Status = dr["Status"].ToString(),
-        //                Location = dr["Location"].ToString(),
-        //            };
-        //            List.Add(report);
-        //        }
-        //        dr.Close();
-        //        con.Close();
-        //        return List;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        dr.Close();
-        //        con.Close();
-        //        throw ex;
-        //    }
-        //}
+
+
+                while (dr.Read())
+                {
+
+                    Report report = new Report
+                    {
+                        Company = dr["Company"].ToString(),
+                        FirstName = dr["FirstName"].ToString(),
+                        LastName = dr["LastName"].ToString(),
+                        ReportDate = DBNull.Value == dr["ReportDate"] ?  null : Convert.ToDateTime(dr["ReportDate"]),
+                        Status = DBNull.Value == dr["Status"] ? null : (dr["Status"].ToString()),                       
+                        Location = dr["Location"].ToString(),
+                    };
+                    List.Add(report);
+                }
+                
+                dr.Close();
+                con.Close();
+                return List;
+            }
+            catch (Exception ex)
+            {
+                dr.Close();
+                con.Close();
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
     }
 }

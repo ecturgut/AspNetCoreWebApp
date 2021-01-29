@@ -15,7 +15,7 @@ namespace AspNetCoreWebApp.Model
         public string Status { get; set; }
 
         [Required]
-        public DateTime ReportDate { get; set; }
+        public Nullable<DateTime> ReportDate { get; set; }
 
         public Persons Person { get; set; }
 
