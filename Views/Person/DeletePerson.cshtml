@@ -1,5 +1,4 @@
-﻿@model AspNetCoreWebApp.Model.Persons
-
+﻿@model AspNetCoreWebApp.VMClasses.PersonsVM
 @{
     ViewData["Title"] = "DeletePerson";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,53 +10,44 @@
 <div>
     <h4>Persons</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PersonID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telephone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Telephone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Company)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Company)
-        </dd>
-    </dl>
-    
-    <form asp-action="DeletePerson">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="PersonList">Back to Person List</a>
+    <form asp-action="DeletePerson" method="post">
+
+
+        <dl class="row">
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Personss.FirstName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Personss.FirstName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Personss.LastName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Personss.LastName)
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Personss.Telephone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Personss.Telephone)
+            </dd>
+
+        </dl>
+
+        <button type="submit" class="btn btn-sm btn-danger"asp-route-prsn="@Model.Personss.PersonID.ToString()">
+            Delete
+        </button>
+       
+        <a asp-action="Index">Back to List</a>
+
     </form>
+
+            <a asp-action="PersonList">Back to Person List</a>
+        
+
+
 </div>
+

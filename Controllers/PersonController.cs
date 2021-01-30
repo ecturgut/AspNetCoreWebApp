@@ -1,5 +1,6 @@
 ﻿using AspNetCoreWebApp.Controllers;
 using AspNetCoreWebApp.VMClasses;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -36,8 +37,16 @@ namespace AspNetCoreWebApp.Model
             {
                 if (ModelState.IsValid)
                 {
-                    string resp = contDB.AddPersonRecord(prsn);
-                    TempData["msg"] = resp;
+                    var result = contDB.AddPersonRecord(prsn);
+                    if (result)
+                    {
+                        TempData["msg"] = "Data saved.";
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Something wrong. Please try again later.";
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -59,34 +68,43 @@ namespace AspNetCoreWebApp.Model
             return View(pvm);
         }
 
+        public IActionResult Connect() 
+        {
+            return View();
+        }
+        [HttpGet]
         public IActionResult DeletePerson(int id)
         {
-            string connStrr = this.Configuration.GetConnectionString("Data Source=DESKTOP-8FK8A22; Initial Catalog = PhoneBook; Integrated Security = True");
-            Persons person = new Persons();
-            using (SqlConnection connection = new SqlConnection())
+            ContactDBAccessLayer dba = new ContactDBAccessLayer();
+            PersonsVM pvm = new PersonsVM();
+            pvm.Personss = dba.GetPersonsByID(id);
+            return View(pvm);
+        }
+
+        [HttpPost]
+        public IActionResult DeletePerson(string prsn)
+        {
+            ContactDBAccessLayer dba = new ContactDBAccessLayer();
+            var result = dba.DeletePerson(Convert.ToInt32(prsn));
+
+            try
             {
-                string sql = $"Delete From Persons Where Id='" + id + "'";
-                SqlCommand command = new SqlCommand(sql, connection);
-
-                connection.Open();
-
-                using (SqlDataReader dataReader = command.ExecuteReader())
+                if (result)
                 {
-                    while (dataReader.Read())
-                    {
-                        person.PersonID = Convert.ToInt32(dataReader["PersonID"]);
-                        person.FirstName = Convert.ToString(dataReader["FirstName"]);
-                        person.LastName = Convert.ToString(dataReader["LastName"]);
-                        person.Email = Convert.ToString(dataReader["Email"]);
-                        person.Telephone = Convert.ToString(dataReader["Telephone"]);
-                        person.Location = Convert.ToString(dataReader["Location"]);
-                        person.Company = Convert.ToString(dataReader["Company"]);
-                    }
+                    TempData["msg"] = "Data deleted.";
                 }
-                connection.Close();
-            }
+                else
+                {
+                    TempData["msg"] = "Something wrong. Please try again later.";
+                }
 
-            return View(person);
+
+            }
+            catch (Exception ex)
+            {
+                TempData["msg"] = ex.Message;
+            }
+            return RedirectToAction("PersonList");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace AspNetCoreWebApp.Model
 
         SqlDataReader dr;
 
-        public string AddPersonRecord(Persons personEntities)
+        public bool AddPersonRecord(Persons personEntities)
         {
             try
             {
@@ -27,9 +27,9 @@ namespace AspNetCoreWebApp.Model
                 cmd.Parameters.AddWithValue("@Location", personEntities.Location);
                 cmd.Parameters.AddWithValue("@Company", personEntities.Company);
                 con.Open();
-                cmd.ExecuteNonQuery();
+                var result = cmd.ExecuteNonQuery();
                 con.Close();
-                return ("Data save Successfully");
+                return result == 1;
             }
             catch (Exception ex)
             {
@@ -37,22 +37,26 @@ namespace AspNetCoreWebApp.Model
                 {
                     con.Close();
                 }
-                return (ex.Message.ToString());
+                Console.WriteLine(ex.Message);// büyük uygulamalarda hata loglanır.
+                return false;
             }
         }
 
-        public string AddReportRecord(Report reportEntities)
+        public bool AddReportRecord(AddReportDTO reportEntities)
         {
+
             try
             {
                 SqlCommand cmd = new SqlCommand("pr_AddReport", con);
+
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@ReportDate", reportEntities.ReportDate);
                 cmd.Parameters.AddWithValue("@Status", reportEntities.Status);
+                cmd.Parameters.AddWithValue("@PersonID", reportEntities.PersonID);
                 con.Open();
-                cmd.ExecuteNonQuery();
+                var result = cmd.ExecuteNonQuery();
                 con.Close();
-                return ("Data save Successfully");
+                return result == 1;
             }
             catch (Exception ex)
             {
@@ -60,7 +64,7 @@ namespace AspNetCoreWebApp.Model
                 {
                     con.Close();
                 }
-                return (ex.Message.ToString());
+                return false;
             }
         }
 
@@ -82,7 +86,7 @@ namespace AspNetCoreWebApp.Model
                         PersonID = Convert.ToInt32(dr["PersonID"]),
                         FirstName = dr["FirstName"].ToString(),
                         LastName = dr["LastName"].ToString(),
-                        Email  = dr["Email"].ToString(),
+                        Email = dr["Email"].ToString(),
                         Telephone = dr["Telephone"].ToString(),
                         Location = dr["Location"].ToString(),
                         Company = dr["Company"].ToString(),
@@ -96,17 +100,53 @@ namespace AspNetCoreWebApp.Model
             catch (Exception ex)
             {
                 dr.Close();
-                con.Close();           
+                con.Close();
                 throw;
             }
         }
+        public Persons GetPersonsByID(int id)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select*from persons where PersonID=@PersonID");
+                cmd.Parameters.AddWithValue("@PersonID", id);
+                cmd.Connection = con;
+                dr = cmd.ExecuteReader();
+                Persons p = new Persons();
+                while (dr.Read())
+                {
+                    p.PersonID = Convert.ToInt32(dr["PersonID"]);
+                    p.FirstName = dr["FirstName"].ToString();
+                    p.LastName = dr["LastName"].ToString();
+                    p.Email = dr["Email"].ToString();
+                    p.Telephone = dr["Telephone"].ToString();
+                    p.Location = dr["Location"].ToString();
+                    p.Company = dr["Company"].ToString();                  
+                    
+                }
+                dr.Close();
+                con.Close();
+                return p;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        //Location ID olarak ayrı tabloda tutulabilir
+        //Status ID olarak ayrı tabloda tutulabilir
+        //Business katmanında da 
+        //inputlarda email,telefon kontrolleri yapılabilir (bu kontroller hem fd tarafında hemde back end tarafında yapılmalıdır.Aksi takdirde algoritma patlar)
+        //Database'de istenilen değerlere kısıtlama yapılabilir bu kısıtlama sonucunda program daha fazla performanlı çalışıp daha az yer kaplar.
 
         public List<Report> GetReport()
         {
             try
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT p.FirstName, p.LastName,p.Company, p.Location ,r.ReportDate,r.Status FROM Persons p LEFT JOIN Report r ON p.PersonID = r.PersonID", con);               
+                SqlCommand cmd = new SqlCommand("SELECT p.FirstName, p.LastName,p.Company, p.Location ,r.ReportDate,r.Status FROM Persons p Inner JOIN Report r ON p.PersonID = r.PersonID", con);
                 cmd.Connection = con;
                 dr = cmd.ExecuteReader();
 
@@ -122,13 +162,13 @@ namespace AspNetCoreWebApp.Model
                         Company = dr["Company"].ToString(),
                         FirstName = dr["FirstName"].ToString(),
                         LastName = dr["LastName"].ToString(),
-                        ReportDate = DBNull.Value == dr["ReportDate"] ?  null : Convert.ToDateTime(dr["ReportDate"]),
-                        Status = DBNull.Value == dr["Status"] ? null : (dr["Status"].ToString()),                       
+                        ReportDate = DBNull.Value == dr["ReportDate"] ? null : Convert.ToDateTime(dr["ReportDate"]),
+                        Status = DBNull.Value == dr["Status"] ? null : (dr["Status"].ToString()),
                         Location = dr["Location"].ToString(),
                     };
                     List.Add(report);
                 }
-                
+
                 dr.Close();
                 con.Close();
                 return List;
@@ -141,5 +181,34 @@ namespace AspNetCoreWebApp.Model
                 throw;
             }
         }
+
+        public bool DeletePerson(int id)
+        {
+            try
+            {
+                string reportDeleteSql = "DELETE FROM [PhoneBook].[dbo].[Report] WHERE [PersonID]=@PersonID";
+                string personDeleteSql = $"Delete From Persons Where PersonID = @PersonID";
+
+
+
+                SqlCommand command = new SqlCommand(reportDeleteSql);
+                command.Parameters.AddWithValue("@PersonID", id);
+                con.Open();
+                command.Connection = con;
+                command.ExecuteNonQuery();
+                command.CommandText = personDeleteSql;
+                var result = command.ExecuteNonQuery();
+                return result == 1;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
     }
 }
+

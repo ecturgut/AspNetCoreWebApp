@@ -19,14 +19,24 @@ namespace AspNetCoreWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateReport([Bind] Report rprt)
+        public IActionResult CreateReport([Bind] AddReportDTO rprt)
         {
+            string resutMessage ="";
             try
             {
                 if (ModelState.IsValid)
                 {
-                    string resp = contDB.AddReportRecord(rprt);
-                    TempData["msg"] = resp;
+                    var resp = contDB.AddReportRecord(rprt);
+                    if(resp)
+                    {
+                        resutMessage = "Data save Successfully";
+                    }
+                    else
+                    {
+                        resutMessage = "data not save Successfully";
+                    }
+
+                    TempData["msg"] = resutMessage;
                 }
             }
             catch (Exception ex)
