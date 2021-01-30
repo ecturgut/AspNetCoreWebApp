@@ -135,6 +135,35 @@ namespace AspNetCoreWebApp.Model
                 throw;
             }
         }
+
+        public Report GetReportByID(int id)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("select * from Report where ID=@ID");
+                cmd.Parameters.AddWithValue("@ID", id);
+                cmd.Connection = con;
+                dr = cmd.ExecuteReader();
+                Report r = new Report();
+                while (dr.Read())
+                {
+                    r.ID = Convert.ToInt32(dr["ID"]);
+                    r.Status = dr["Status"].ToString();
+                    r.ReportDate = DBNull.Value == dr["ReportDate"] ? null : Convert.ToDateTime(dr["ReportDate"]);
+                    r.PersonID = Convert.ToInt32(dr["PersonID"]);
+                }
+                dr.Close();
+                con.Close();
+                return r;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         //Location ID olarak ayrı tabloda tutulabilir
         //Status ID olarak ayrı tabloda tutulabilir
         //Business katmanında da 
@@ -146,7 +175,7 @@ namespace AspNetCoreWebApp.Model
             try
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT p.FirstName, p.LastName,p.Company, p.Location ,r.ReportDate,r.Status FROM Persons p Inner JOIN Report r ON p.PersonID = r.PersonID", con);
+                SqlCommand cmd = new SqlCommand("SELECT r.ID, p.FirstName, p.LastName,p.Company, p.Location ,r.ReportDate,r.Status FROM Persons p Inner JOIN Report r ON p.PersonID = r.PersonID", con);
                 cmd.Connection = con;
                 dr = cmd.ExecuteReader();
 
@@ -159,6 +188,7 @@ namespace AspNetCoreWebApp.Model
 
                     Report report = new Report
                     {
+                        ID = Convert.ToInt32(dr["ID"]),
                         Company = dr["Company"].ToString(),
                         FirstName = dr["FirstName"].ToString(),
                         LastName = dr["LastName"].ToString(),
@@ -209,6 +239,34 @@ namespace AspNetCoreWebApp.Model
                 con.Close();
             }
         }
+
+        public bool DeleteReport(int id)
+        {
+            try
+            {
+                string reportDeleteSql = "DELETE FROM [PhoneBook].[dbo].[Report] WHERE [ID]=@ID";
+
+                SqlCommand command = new SqlCommand(reportDeleteSql);
+                command.Parameters.AddWithValue("@ID", id);
+                con.Open();
+                command.Connection = con;               
+                command.CommandText = reportDeleteSql;
+                var result = command.ExecuteNonQuery();
+                return result == 1;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
+
+
     }
 }
 

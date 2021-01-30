@@ -56,5 +56,41 @@ namespace AspNetCoreWebApp.Controllers
 
             return View(rvm);
         }
+
+        [HttpGet]
+        public IActionResult DeleteReport(int id)
+        {
+            ContactDBAccessLayer dba = new ContactDBAccessLayer();
+            ReportVM rvm = new ReportVM();
+            rvm.Reportt = dba.GetReportByID(id);
+            return View(rvm);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteReport(string rvm)
+        {
+            ContactDBAccessLayer dba = new ContactDBAccessLayer();
+            var result = dba.DeleteReport(Convert.ToInt32(rvm));
+
+            try
+            {
+                if (result)
+                {
+                    TempData["msg"] = "Data deleted.";
+                }
+                else
+                {
+                    TempData["msg"] = "Something wrong. Please try again later.";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                TempData["msg"] = ex.Message;
+            }
+            return RedirectToAction("ReportList");
+        }
+
     }
 }

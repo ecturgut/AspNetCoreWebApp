@@ -71,7 +71,7 @@
 
                 <td>
                     <button type="button" id="sil" class="btn btn-success" asp-route-id="#" onclick="location.href='@Url.Action("#",new {/* id=item.PrimaryKey */})'">Edit</button>
-                    <button type="button" id="sil" class="btn btn-sm btn-danger" asp-route-id="@item.PersonID" onclick="location.href='@Url.Action("DeletePerson",new {id=item.PersonID})'"> Delete</button>
+                    <button type="button" id="sil" class="btn btn-sm btn-danger" asp-route-id="@item.PersonID" onclick="location.href='@Url.Action("DeleteReport", new {id = item.ID})'"> Delete</button>
 
                 </td>
             </tr>
@@ -79,3 +79,14 @@
 
     </tbody>
 </table>
+
+@{
+    if (@TempData["Msg"] != null)
+    {
+        <script>
+
+            alert('@TempData["msg"]')
+        </script>
+
+    }
+}
