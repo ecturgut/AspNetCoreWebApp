@@ -265,7 +265,7 @@ namespace AspNetCoreWebApp.Model
             }
         }
 
-        public void EditPerson(Persons person)
+        public bool EditPerson(Persons person)
         {
 
             try
@@ -283,13 +283,14 @@ namespace AspNetCoreWebApp.Model
 
                 con.Open();
                 cmd.Connection = con;
-                cmd.ExecuteNonQuery();
+                int result = cmd.ExecuteNonQuery();
+                return result == 1;
 
             }
             catch (Exception)
             {
 
-                throw;
+                return false;
             }
             finally
             {
@@ -298,7 +299,36 @@ namespace AspNetCoreWebApp.Model
 
         }
 
+        public bool EditReport(Report r)
+        {
 
+            try
+            {
+                string editPersons = "Update Report  set Status = @Status,ReportDate = @ReportDate  WHERE ID = @ID";
+                SqlCommand cmd = new SqlCommand(editPersons);
+
+                cmd.Parameters.AddWithValue("@ID", r.ID);
+                cmd.Parameters.AddWithValue("@Status", r.Status);
+                cmd.Parameters.AddWithValue("@ReportDate", r.ReportDate);
+               
+
+
+                con.Open();
+                cmd.Connection = con;
+                int result = cmd.ExecuteNonQuery();
+                return result == 1;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
 
     }
 }

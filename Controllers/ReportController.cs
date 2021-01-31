@@ -21,13 +21,13 @@ namespace AspNetCoreWebApp.Controllers
         [HttpPost]
         public IActionResult CreateReport([Bind] AddReportDTO rprt)
         {
-            string resutMessage ="";
+            string resutMessage = "";
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var resp = contDB.AddReportRecord(rprt);
-                    if(resp)
+                    bool resp = contDB.AddReportRecord(rprt);
+                    if (resp)
                     {
                         resutMessage = "Data save Successfully";
                     }
@@ -51,7 +51,7 @@ namespace AspNetCoreWebApp.Controllers
             ReportVM rvm = new ReportVM
             {
                 Report = contDB.GetReport(),
-                
+
             };
 
             return View(rvm);
@@ -60,20 +60,21 @@ namespace AspNetCoreWebApp.Controllers
         [HttpGet]
         public IActionResult DeleteReport(int id)
         {
-            ContactDBAccessLayer dba = new ContactDBAccessLayer();
+            
             ReportVM rvm = new ReportVM();
-            rvm.Reportt = dba.GetReportByID(id);
+            rvm.Reportt = contDB.GetReportByID(id);
             return View(rvm);
         }
 
         [HttpPost]
         public IActionResult DeleteReport(string rvm)
         {
-            ContactDBAccessLayer dba = new ContactDBAccessLayer();
-            var result = dba.DeleteReport(Convert.ToInt32(rvm));
-
+            
+            
             try
             {
+                bool result = contDB.DeleteReport(Convert.ToInt32(rvm));
+
                 if (result)
                 {
                     TempData["msg"] = "Data deleted.";
@@ -89,6 +90,41 @@ namespace AspNetCoreWebApp.Controllers
             {
                 TempData["msg"] = ex.Message;
             }
+            return RedirectToAction("ReportList");
+        }
+
+        [HttpGet]
+        public IActionResult EditReport(int id)
+        {
+
+            Report r = new Report();
+            r = contDB.GetReportByID(id);
+
+            return View(r);
+        }
+
+        [HttpPost]
+        public IActionResult EditReport(Report rprt)
+        {
+            
+            try
+            {
+                bool result = contDB.EditReport(rprt);
+                if (result)
+                {
+                    TempData["msg"] = "Data edited.";
+                }
+                else
+                {
+                    TempData["msg"] = "Something wrong. Please try again later.";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["msg"] = ex.Message;
+            }
+
             return RedirectToAction("ReportList");
         }
 
