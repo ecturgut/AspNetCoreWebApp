@@ -4,17 +4,10 @@
 Contact application with net core 5.0
 
 
- Yapılacaklar
+Projenin İçeriği
 
-[ ] Asp.Net Framework'te Modele Veritabanı eklenmesi .Net Core için araştırılacak.
+Navbar menüsünde bulunan dropdownlarda kişi listesi ve rapor listesi sayfasına bağlantı verilmektedir.
 
-[ ] Asp.Net Core için MSSQL'de hazılanan veritabanı eklenecek.
+Kişi Listesi sayfası açıldığında karşınıza kişi listesi gelir. Burada bulunan 3 tane buton vardır. Bu butonlar kişi ekleme, kişi düzenleme ve kişi silme işlemlerini gerçekleştirir.
 
-[ ] Kişilere CRUD işlemleri eklenecek.
-
-[ ] Kişilerin İletişim Bilgileri için ekleme sayfası eklenecek.
-
-[ ] Asp.Net Core için asenkron yapı araştırılacak.
-
-[ ] Raporların Listelenmesi işlemleri eklenecek.
-
+Rapor Listesi sayfasında da aynı şekilde açıldığı zaman rapor listesini veri tabanından çekip karşımıza getirir. Buton yardımıyla crud fonksiyonları yapmaktadır. 
