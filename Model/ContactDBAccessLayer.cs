@@ -164,13 +164,17 @@ namespace AspNetCoreWebApp.Model
                 throw;
             }
         }
-
-        //Location ID olarak ayrı tabloda tutulabilir
-        //Status ID olarak ayrı tabloda tutulabilir
-        //Business katmanında da tutulabilir 
-        //inputlarda email,telefon kontrolleri yapılabilir (bu kontroller hem fd tarafında hemde back end tarafında yapılmalıdır.Aksi takdirde algoritma patlar)
-        //Database'de istenilen değerlere kısıtlama yapılabilir bu kısıtlama sonucunda program daha fazla performanlı çalışıp daha az yer kaplar.
-
+        /*
+        ------- İsteğe bağlı olarak projeye dahil edibilecekler listesi -----
+        -Location ID olarak ayrı tabloda tutulabilir
+        -Status ID olarak ayrı tabloda tutulabilir
+        -Business katmanında da tutulabilir 
+        -inputlarda email,telefon kontrolleri yapılabilir (bu kontroller hem fd tarafında hemde back end tarafında yapılmalıdır.Aksi takdirde algoritma patlar)
+        -Database'de istenilen değerlere kısıtlama yapılabilir bu kısıtlama sonucunda program daha fazla performanlı çalışıp daha az yer kaplar.
+        -Persons tablosunda olan bilgileri ayrı ayrı tutmak yerine iletişim bilgilerini de dahil edip tek tabloda tutmayı terih ettim. Edit butonundan onu da düzenleyebiiriz diye düşündüm.
+        -Report Tablosunda Stutusa Id verip tek tablo yerine iki tabloda çalışılabilir.
+        -StatusInfo diye tablo acılıp Report tablosunda Status(ID) olarak değiştirilebilir.
+        */
         public List<Report> GetReport()
         {
             try
