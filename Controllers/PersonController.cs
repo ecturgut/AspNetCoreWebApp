@@ -75,17 +75,17 @@ namespace AspNetCoreWebApp.Model
         [HttpGet]
         public IActionResult DeletePerson(int id)
         {
-            ContactDBAccessLayer dba = new ContactDBAccessLayer();
+            
             PersonsVM pvm = new PersonsVM();
-            pvm.Personss = dba.GetPersonsByID(id);
+            pvm.Personss = contDB.GetPersonsByID(id);
             return View(pvm);
         }
 
         [HttpPost]
         public IActionResult DeletePerson(string prsn)
         {
-            ContactDBAccessLayer dba = new ContactDBAccessLayer();
-            var result = dba.DeletePerson(Convert.ToInt32(prsn));
+            
+            var result = contDB.DeletePerson(Convert.ToInt32(prsn));
 
             try
             {
@@ -104,6 +104,25 @@ namespace AspNetCoreWebApp.Model
             {
                 TempData["msg"] = ex.Message;
             }
+            return RedirectToAction("PersonList");
+        }
+
+        [HttpGet]
+        public IActionResult EditPerson(int id) 
+        {
+          
+            Persons p = new Persons();
+            p = contDB.GetPersonsByID(id);
+            
+            return View(p);
+        }
+
+        [HttpPost]
+        public IActionResult EditPerson(Persons prsn)
+        {           
+            contDB.EditPerson(prsn);
+           
+          
             return RedirectToAction("PersonList");
         }
     }

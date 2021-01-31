@@ -14,6 +14,7 @@ namespace AspNetCoreWebApp.Model
 
         SqlDataReader dr;
 
+
         public bool AddPersonRecord(Persons personEntities)
         {
             try
@@ -122,8 +123,8 @@ namespace AspNetCoreWebApp.Model
                     p.Email = dr["Email"].ToString();
                     p.Telephone = dr["Telephone"].ToString();
                     p.Location = dr["Location"].ToString();
-                    p.Company = dr["Company"].ToString();                  
-                    
+                    p.Company = dr["Company"].ToString();
+
                 }
                 dr.Close();
                 con.Close();
@@ -249,7 +250,7 @@ namespace AspNetCoreWebApp.Model
                 SqlCommand command = new SqlCommand(reportDeleteSql);
                 command.Parameters.AddWithValue("@ID", id);
                 con.Open();
-                command.Connection = con;               
+                command.Connection = con;
                 command.CommandText = reportDeleteSql;
                 var result = command.ExecuteNonQuery();
                 return result == 1;
@@ -264,6 +265,38 @@ namespace AspNetCoreWebApp.Model
             }
         }
 
+        public void EditPerson(Persons person)
+        {
+
+            try
+            {
+                string editPersons = "Update Persons  set FirstName = @FirstName,LastName = @LastName,Email = @Email,Telephone = @Telephone, Location = @Location WHERE PersonID = @PersonID";
+                SqlCommand cmd = new SqlCommand(editPersons);
+
+                cmd.Parameters.AddWithValue("@PersonID", person.PersonID);
+                cmd.Parameters.AddWithValue("@FirstName", person.FirstName);
+                cmd.Parameters.AddWithValue("@LastName", person.LastName);
+                cmd.Parameters.AddWithValue("@Email", person.Email);
+                cmd.Parameters.AddWithValue("@Telephone", person.Telephone);
+                cmd.Parameters.AddWithValue("@Location", person.Location);
+                cmd.Parameters.AddWithValue("@Company", person.Company);
+
+                con.Open();
+                cmd.Connection = con;
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
 
 
 

@@ -18,21 +18,21 @@
 
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Enver Cemre Turgut</a>
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">Enver Cemre Turgut</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="dropdwn">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="Home/Index">Anasayfa</a>
+                        <a class="nav-link active" aria-current="page" href="@Url.Action("Index","Home")">Anasayfa</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Raporlar
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="Report/ReportList">Rapor Listesi</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("ReportList","Report")">Rapor Listesi</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -40,7 +40,7 @@
                             Kişiler
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="Person/PersonList">Kişi Listesi</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("PersonList","Person")">Kişi Listesi</a></li>
                         </ul>
                     </li>
                 </ul>

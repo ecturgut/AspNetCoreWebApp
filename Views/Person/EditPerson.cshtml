@@ -1,21 +1,23 @@
 ﻿@model AspNetCoreWebApp.Model.Persons
 
 @{
-    ViewData["Title"] = "CreatePerson";
+    ViewData["Title"] = "EditPerson";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br />
 <hr />
-<h3>Create Person Form </h3>
+<br />
+
+<h1>EditPerson</h1>
 
 
 <hr />
 <br />
+
 <div class="row">
-    <form asp-action="CreatePerson" class="form-horizontal">
-       
+    <form asp-action="EditPerson" class="form-horizontal">
         <div class="col-md-4">
+            @Html.HiddenFor(m => m.PersonID)
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label">First Name</label>
@@ -55,7 +57,7 @@
 
             <div class="form-group">
                 <label asp-for="Telephone" class="control-label">Telephone</label>
-                <input type="tel" asp-for="Telephone" class="form-control" />
+                <input asp-for="Telephone" class="form-control" />
                 <span asp-validation-for="Telephone" class="text-danger"></span>
             </div>
 
@@ -72,11 +74,11 @@
             <br />
 
             <div class="form-group">
-                <input type="submit" value="Create Person" class="btn btn-primary" />
+                <input type="submit" value="Edit Person" class="btn btn-primary" />
             </div>
         </div>
     </form>
- </div>
+</div>
 
 
 <br />
