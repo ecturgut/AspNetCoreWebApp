@@ -48,7 +48,7 @@ namespace AspNetCoreWebApp.Model
             {
                 TempData["msg"] = ex.Message;
             }
-            return View();
+            return RedirectToAction("PersonList"); 
         }
 
         public IActionResult PersonList()

@@ -167,7 +167,7 @@ namespace AspNetCoreWebApp.Model
 
         //Location ID olarak ayrı tabloda tutulabilir
         //Status ID olarak ayrı tabloda tutulabilir
-        //Business katmanında da 
+        //Business katmanında da tutulabilir 
         //inputlarda email,telefon kontrolleri yapılabilir (bu kontroller hem fd tarafında hemde back end tarafında yapılmalıdır.Aksi takdirde algoritma patlar)
         //Database'de istenilen değerlere kısıtlama yapılabilir bu kısıtlama sonucunda program daha fazla performanlı çalışıp daha az yer kaplar.
 
@@ -270,7 +270,7 @@ namespace AspNetCoreWebApp.Model
 
             try
             {
-                string editPersons = "Update Persons  set FirstName = @FirstName,LastName = @LastName,Email = @Email,Telephone = @Telephone, Location = @Location WHERE PersonID = @PersonID";
+                string editPersons = "Update Persons  set FirstName = @FirstName, LastName = @LastName, Email = @Email, Telephone = @Telephone, Location = @Location, Company= @Company WHERE PersonID = @PersonID";
                 SqlCommand cmd = new SqlCommand(editPersons);
 
                 cmd.Parameters.AddWithValue("@PersonID", person.PersonID);
@@ -304,8 +304,8 @@ namespace AspNetCoreWebApp.Model
 
             try
             {
-                string editPersons = "Update Report  set Status = @Status,ReportDate = @ReportDate  WHERE ID = @ID";
-                SqlCommand cmd = new SqlCommand(editPersons);
+                string editReport = "Update Report  set Status = @Status,ReportDate = @ReportDate  WHERE @ID = @ID";
+                SqlCommand cmd = new SqlCommand(editReport);
 
                 cmd.Parameters.AddWithValue("@ID", r.ID);
                 cmd.Parameters.AddWithValue("@Status", r.Status);

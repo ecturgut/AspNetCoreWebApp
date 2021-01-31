@@ -43,7 +43,7 @@ namespace AspNetCoreWebApp.Controllers
             {
                 TempData["msg"] = ex.Message;
             }
-            return View();
+            return RedirectToAction("ReportList");
         }
 
         public IActionResult ReportList()
