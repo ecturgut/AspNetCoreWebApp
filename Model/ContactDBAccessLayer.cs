@@ -310,7 +310,7 @@ namespace AspNetCoreWebApp.Model
                 cmd.Parameters.AddWithValue("@ID", r.ID);
                 cmd.Parameters.AddWithValue("@Status", r.Status);
                 cmd.Parameters.AddWithValue("@ReportDate", r.ReportDate);
-               
+
 
 
                 con.Open();

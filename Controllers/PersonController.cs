@@ -18,7 +18,7 @@ namespace AspNetCoreWebApp.Model
     {
         
         ContactDBAccessLayer contDB = new ContactDBAccessLayer();
-       
+    
         [HttpGet]
         public IActionResult CreatePerson()
         {
@@ -27,7 +27,7 @@ namespace AspNetCoreWebApp.Model
 
         [HttpPost]
         public IActionResult CreatePerson([Bind] Persons prsn)
-        {
+        { 
             try
             {
                 if (ModelState.IsValid)

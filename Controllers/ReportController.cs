@@ -1,6 +1,7 @@
 ﻿using AspNetCoreWebApp.Model;
 using AspNetCoreWebApp.VMClasses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,7 +97,7 @@ namespace AspNetCoreWebApp.Controllers
         [HttpGet]
         public IActionResult EditReport(int id)
         {
-
+            
             Report r = new Report();
             r = contDB.GetReportByID(id);
 
